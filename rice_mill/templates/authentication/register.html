@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/authentication/register.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <title>Register</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="title"><span>Registration Form</span></div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="username" id="id_username" placeholder="Username" required />
+                </div>
+                <div class="row">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input type="text" name="email" id="id_email" placeholder="E-mail" required />
+                </div>
+                <div class="row">
+                    <i class="fas fa-lock"></i>
+                    <input type="password1" name="password1" id="id_password1" placeholder="Password" required />
+                </div>
+                <div class="row">
+                    <i class="fas fa-lock"></i>
+                    <input type="password2" name="password2" id="id_password2" placeholder="Conform Password" required />
+                </div>
+                <div class="row button">
+                    <input type="submit" value="Register" />
+                </div>
+                <div class="signup-link">Already have account? <a href="{% url 'login' %}">Login now</a></div>
+            </form>
+    </div>
+</body>
+</html>
