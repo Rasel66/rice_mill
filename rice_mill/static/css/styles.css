@@ -1,6 +1,9 @@
 /* Home page css */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-
+*{
+    font-family: "News Cycle", sans-serif;
+    margin: 0;
+    padding: 0;
+}
 .banner-image {
     position: relative;
     background-image: url("https://www.hongjiaricemill.com/wp-content/uploads/2022/03/60t_rice_mill_machinery.jpg");
@@ -32,4 +35,40 @@
 }
 .banner-text h2 {
     font-size: 50px;
+}
+
+/* Customer section */
+.base-container{
+    padding: 5px 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+ul.action {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    display: inline-flex;
+}
+ul.action li {
+    margin-right: 7px;
+}
+ul.action li a i {
+    color: white;
+}
+a.edit-click {
+    background: #318802;
+    padding: 0px 4px;
+    border-radius: 3px;
+}
+a.eye-click {
+    background: #036194;
+    padding: 0px 4px;
+    border-radius: 3px;
+}
+a.delete-click {
+    background: #e23e2f;
+    padding: 0px 4px;
+    border-radius: 3px;
 }

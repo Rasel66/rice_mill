@@ -7,4 +7,6 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
 
     path('home-page', home_page_view, name='home_page'),
+    path('ledger/', ledger_page_view, name='ledger'),
+    path('customer-create/', customer_creation_view, name='customer_create'),
 ]

@@ -3,7 +3,8 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import CustomAuthenticationForm, CustomUserCreationForm
+from .models import Customer
+from .forms import CustomAuthenticationForm, CustomUserCreationForm, CutomerForm
 
 # Create your views here.
 
@@ -48,4 +49,30 @@ def logout_view(request):
 
 @login_required(login_url='login')
 def home_page_view(request):
-    return render(request, "home_page.html")
+    return render(request, "pages/home_page.html")
+
+@login_required(login_url='login')
+def ledger_page_view(request):
+    get_customer_list = Customer.objects.all().order_by('-id')
+    context = {
+        'customer_list': get_customer_list
+    }
+    return render(request, 'pages/customer/index.html', context)
+
+@login_required(login_url='login')
+def customer_creation_view(request):
+    form = CutomerForm()
+    if request.method == "POST":
+        form = CutomerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Customer Created Successfully!!!")
+            return redirect('ledger')
+        else:
+            print(form.errors)
+    else:
+        form = CutomerForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'pages/customer/create.html', context)
