@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Party Invoice{% endblock  %}
+{% block content %}
+<div class="container base-container card" style="background-color: white; min-height: 100vh;">
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <div class="title-text">
+                <h5>Party Invoice Index</h5>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <div class="add-new" style="text-align: right;">
+                <a href="{% url 'party_invoice_create' %}"><button class="btn btn-primary"><i class="fa-solid fa-circle-plus"></i> Add new</button></a>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <div class="search">
+                <form class="d-flex">
+                    <input class="form-control me-sm-2" type="search" placeholder="Search Customer">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-8"></div>
+    </div>
+    <div class="row">
+        <div class="tables table-responsive" id="deptList">
+            <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th class="text-center">SL</th>
+                    <th class="text-center">Customer</th>
+                    <th class="text-center">Items</th>
+                    <th class="text-center">UOM</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-center">Unit Price</th>
+                    <th class="text-center">Total Price</th>
+                    <th class="text-center">Charge</th>
+                    <th class="text-center">Previous Balance</th>
+                    <th class="text-center">Cash Pay</th>
+                    <th class="text-center">Grand Total</th>
+                    <th class="text-center">Current Due</th>
+                    <th class="text-center">Base Unit Qty</th>
+                    <th class="text-center">Remarks</th>
+                    <th class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% if party_invoice_obj %}
+                    {% for item in party_invoice_obj %}
+                    <tr>
+                      <td class="text-center">{{forloop.counter}}</td>
+                      <td class="text-center">{{item.customer}}</td>
+                      <td class="text-center">{{item.items}}</td>
+                      <td class="text-center">{{item.uom}}</td>
+                      <td class="text-center">{{item.qty}}</td>
+                      <td class="text-center">{{item.unit_price}}</td>
+                      <td class="text-center">{{item.total_price}}</td>
+                      <td class="text-center">{{item.charges}}</td>
+                      <td class="text-center">{{item.prev_balance}}</td>
+                      <td class="text-center">{{item.cash_pay}}</td>
+                      <td class="text-center">{{item.grand_total_balance}}</td>
+                      <td class="text-center">{{item.current_due}}</td>
+                      <td class="text-center">{{item.base_unit_qty}}</td>
+                      <td class="text-center">{{item.remarks}}</td>
+                      <td class="text-center">
+                        <ul class="action">
+                            <li >
+                              <a type="button" href="{% url 'party_invoice_generation' item.id %}" class="eye-click" data-toggle="tooltip" data-placement="top" title="View" >
+                                
+                                    <i class="fa-solid fa-file-invoice"></i>
+                                </a>
+                              </li>
+                            <li>
+                              <a type="button" href="{% url 'party_invoice_update' item.id %}" class="edit-click" data-toggle="tooltip" data-placement="top" title="Update" >
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                              </li>
+                            <li>
+                                <a class="delete-click" data-toggle="tooltip" data-placement="top" title="Delete" onclick="SweetDelete(event,this.href)" href="{% url 'party_invoice_delete' item.id %}">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul> 
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="15" class="text-center">Data not found</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    {% if party_invoice_obj.has_other_pages %}
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+            {% if party_invoice_obj.has_previous %}
+            <li class="page-item" >
+                    <a href="?page={{ party_invoice_obj.previous_page_number }}" class="page-link" tabindex="-1">Previous</a>
+                </li>
+            {% if party_invoice_obj.number > 3 %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">1</a>
+            </li>
+                {% if party_invoice_obj.number > 4 %}
+
+                <li class="page-item">
+                <span class="page-link">...</span>
+                </li>
+                {% endif %}
+            {% endif %}
+            {% endif %}
+
+            {% for num in party_invoice_obj.paginator.page_range %}
+            {% if party_invoice_obj.number == num %}
+            <li class="page-item active">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% elif num > party_invoice_obj.number|add:'-3' and num < party_invoice_obj.number|add:'3' %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+
+            {% if party_invoice_obj.has_next %}
+            {% if party_invoice_obj.number < party_invoice_obj.paginator.num_pages|add:'-3' %}
+                <li class="page-item">
+                <span class="page-link">...</span>
+                </li>
+                <li class="page-item">
+                <a class="page-link" href="?page={{ party_invoice_obj.paginator.num_pages }}">{{ party_invoice_obj.paginator.num_pages }}</a>
+                </li>
+            {% elif party_invoice_obj.number < party_invoice_obj.paginator.num_pages|add:'-2' %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ party_invoice_obj.paginator.num_pages }}">{{ party_invoice_obj.paginator.num_pages }}</a>
+            </li>
+            {% endif %}
+            <li class="page-item">
+            <a href="?page={{ party_invoice_obj.next_page_number }}" class="page-link">Next</a>
+            </li>
+            {% endif %}
+        </ul>  
+    </nav> 
+    {% endif %}  
+
+
+</div>
+
+{% endblock %}
+
+{% block blockJs %}
+<script>
+    function SweetDelete(e, href) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = href;
+            }
+        });
+    }
+</script>
+
+
+{% endblock %}

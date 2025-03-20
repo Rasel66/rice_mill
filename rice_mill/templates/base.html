@@ -31,16 +31,25 @@
                               <li class="nav-item">
                                 <a class="nav-link" style="color: white !important;" href="#">Dashboard</a>
                               </li>
-                              <li class="nav-item">
-                                <a class="nav-link" style="color: white !important;" href="#">Products</a>
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" style="color: white !important;" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
+                                <div class="dropdown-menu" style="background: #0d6efd">
+                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'item_types_index' %}">Item Types</a>
+                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'items_index' %}">Items</a>
+                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'party_invoice_child_index' %}">Buying Items</a>
+                                </div>
                               </li>
-                              <li class="nav-item">
-                                <a class="nav-link" style="color: white !important;" href="#">Settings</a>
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" style="color: white !important;" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Settings</a>
+                                <div class="dropdown-menu" style="background: #0d6efd">
+                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'uom_index' %}">UOM</a>
+                                </div>
                               </li>
                               <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" style="color: white !important;" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Customer</a>
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu" style="background: #0d6efd">
                                   <a class="dropdown-item" style="color: white !important;" href="{% url 'ledger' %}">Ledger</a>
+                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'party_invoice_index' %}">Party Invoice</a>
                                   <!-- <a class="dropdown-item" href="#">Another action</a>
                                   <a class="dropdown-item" href="#">Something else here</a>
                                   <div class="dropdown-divider"></div>
@@ -75,10 +84,12 @@
 
     <!-- Menu End -->
 
-    {% block content %}
+    <div style="min-height: 100vh;">
+      {% block content %}
     
     
-    {% endblock %}
+      {% endblock %}
+    </div>
 
     <!-- Footer -->
      <div class="container-fluid bg-dark">
@@ -93,12 +104,18 @@
           </div>
      </div>
 
-
+     {% block blockJs %}
+     
+     
+     {% endblock %}
      <script>
       const year = new Date().getFullYear()
       document.getElementById("year").innerHTML = `&copy; Copyright ${year} RMMS | All Right Reserved`
      </script>
 
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

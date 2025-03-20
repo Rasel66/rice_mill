@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Invoice{% endblock  %}
+{% block content %}
+<div class="invoice-container card" style="margin-top: 15px; margin-bottom: 15px;">
+    <div class="row p-3" style="background-color: #0d6efd; color: white; border-radius: 6px;">
+        <div class="col-md-12">
+            <div class="invoice_top_left text-center">
+                <h4>XYZ AUTO RICE MILL</h4>
+                <h6>Phone: 01354875609</h6>
+                <h6>E-mail: invoice@gamil.com</h6>
+                <h6>Address: Rupganj, Jashore, Bangladesh</h6>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="invoice_topb_middle">
+                <h6>Customer Name: Kamrul Alom</h6>
+                <h6>Phone: 01673459803</h6>
+                <h6>Address: Chanchra, Jashore</h6>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <div class="invoice_top_middle">
+                <h6>Date: 12/02/2025</h6>
+                <h6>Invoice no: 03</h6>
+                <h6>Customer ID: 03243</h6>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table mt-2" style="width: 100%;">
+                <thead>
+                    <tr class="invoice-table">
+                        <th scope="col" style="width: 10%;">SL No</th>
+                        <th scope="col" style="width: 30%;">Item Name</th>
+                        <th scope="col" style="width: 20%;">Quantity</th>
+                        <th scope="col" style="width: 20%;">Charge</th>
+                        <th scope="col" style="width: 20%;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Dhan</td>
+                        <td>80 Kg</td>
+                        <td>30 Tk</td>
+                        <td>1000 Tk</td>
+                        <!-- <td colspan="5">&nbsp;</td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table mt-2" style="width: 100%;">
+                <thead>
+                    <tr class="invoice-table">
+                        <th scope="col" style="width: 10%;">SL No</th>
+                        <th scope="col" style="width: 30%;">Item Name</th>
+                        <th scope="col" style="width: 20%;">Quantity</th>
+                        <th scope="col" style="width: 20%;">Charge</th>
+                        <th scope="col" style="width: 20%;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Chal</td>
+                        <td>10 Kg</td>
+                        <td>30 Tk</td>
+                        <td>300 Tk</td>
+                        <!-- <td colspan="5">&nbsp;</td> -->
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Khud</td>
+                        <td>5 Kg</td>
+                        <td>20 Tk</td>
+                        <td>100 Tk</td>
+                        <!-- <td colspan="5">&nbsp;</td> -->
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Kura</td>
+                        <td>3 Kg</td>
+                        <td>20 Tk</td>
+                        <td>60 Tk</td>
+                        <!-- <td colspan="5">&nbsp;</td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="footer">
+                <p><span class="bold">Special Instructions:</span></p>
+                <p>1. Total payment due in 30 days</p>
+                <p>2. Please include the invoice number on your check</p>
+                <p>Make all checks payable to <b>XYX Auto Rice Mill</b></p>
+            </div>
+            <div class="signature">
+                <p>Authorized Signature: ______________________</p>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <table class="table table-sm table-bordered">
+                <tr>
+                    <th>Bill</th>
+                    <td>1000 TK</td>
+                </tr>
+                <tr>
+                    <th>Item Total Bill</th>
+                    <td>460 TK</td>
+                </tr>
+                <tr>
+                    <th>Cash Pay</th>
+                    <td>400 TK</td>
+                </tr>
+                <tr>
+                    <th>Grand Total Balance</th>
+                    <td>350 TK</td>
+                </tr>
+                <tr>
+                    <th>Due Balance</th>
+                    <td>40 TK</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block blockJs %}
+
+{% endblock %}
