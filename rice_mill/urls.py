@@ -37,5 +37,11 @@ urlpatterns = [
     path('party-invoice-child/update/<int:pk>', party_invoice_child_update_view, name='party_invoice_child_update'),
     path('party-invoice-child/delete/<int:pk>', party_invoice_child_delete_view, name='party_invoice_child_delete'),
 
+    path('add-items-details/index/', addItems_details_index_view, name='add_items_details_index'),
+    path('add-items-details/create/', addItems_details_create_view, name='add_items_details_create'),
+    path('add-items-details/update/<int:pk>', addItems_details_update_view, name='add_items_details_update'),
+    path('add-items-details/single/<int:pk>', addItems_sigle_details_view, name='add_items_single_details'),
+    path('add-items-details/delete/<int:pk>', addItems_details_delete_view, name='add_items_details_delete'),
+
     path('party-invoice/generation/<int:pk>', party_invoice_generation_view, name='party_invoice_generation'),
 ]

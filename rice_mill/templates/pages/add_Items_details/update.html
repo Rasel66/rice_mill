@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Update Item Details{% endblock  %}
+{% block content %}
+<div class="container base-container card" style="background-color: white;">
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <div class="title-text">
+                <h5>Update Item Details</h5>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="row m-1">
+                <div class="col-md-6">
+                    {{form.customer|as_crispy_field}}
+                </div>
+                <div class="col-md-6">
+                    {{form.cash_pay|as_crispy_field}}
+                </div>
+            </div>
+            <div class="row m-1">
+                <div class="col-md-3">
+                    {{form.items|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.dhan_uom|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.dhan_qty|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.dhan_unit_price|as_crispy_field}}
+                </div>
+            </div>
+            <div class="row m-1">
+                <div class="col-md-3">
+                    {{form.items|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.chaul_uom|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.chaul_qty|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.chaul_unit_price|as_crispy_field}}
+                </div>
+            </div>
+            <div class="row m-1">
+                <div class="col-md-3">
+                    {{form.items|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.khud_uom|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.khud_qty|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.khud_unit_price|as_crispy_field}}
+                </div>
+            </div>
+            <div class="row m-1">
+                <div class="col-md-3">
+                    {{form.items|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.kura_uom|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.kura_qty|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.kura_unit_price|as_crispy_field}}
+                </div>
+            </div>
+            <div class="row m-1">
+                <div class="col-md-3">
+                    {{form.items|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.chita_uom|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.chita_qty|as_crispy_field}}
+                </div>
+                <div class="col-md-3">
+                    {{form.chita_unit_price|as_crispy_field}}
+                </div>
+            </div>
+            <div class='text-center m-3'>
+                <button type="submit" class="btn btn-info">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock  %}

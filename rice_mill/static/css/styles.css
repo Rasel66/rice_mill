@@ -57,6 +57,11 @@ ul.action li {
 ul.action li a i {
     color: white;
 }
+a.invoice-click {
+    background: #a569bd;
+    padding: 0px 4px;
+    border-radius: 3px;
+}
 a.edit-click {
     background: #318802;
     padding: 0px 4px;

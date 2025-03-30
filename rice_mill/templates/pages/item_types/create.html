@@ -15,10 +15,13 @@
         <form action="" method="POST">
             {% csrf_token %}
             <div class="row m-1">
-                <div class="col-md-6">
+                <div class="col-md-4">
+                    {{form.item_type_id|as_crispy_field}}
+                </div>
+                <div class="col-md-4">
                     {{form.item_type_name|as_crispy_field}}
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     {{form.item_type_name_bn|as_crispy_field}}
                 </div>
             </div>

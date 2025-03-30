@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-from .models import CustomUser, Customer, ItemTypes, Items, Uom, PartyInvoices, PartyInvoiceChild
+from .models import CustomUser, Customer, ItemTypes, Items, Uom, PartyInvoices, PartyInvoiceChild, AddItemsDetails
 
 # Authentication form start
 
@@ -28,7 +28,8 @@ class ItemTypesForm(forms.ModelForm):
         fields = '__all__'
         labels = {
             'item_type_name': "Item Types Name",
-            'item_type_name_bn': "Item Types Name Bangla"
+            'item_type_name_bn': "Item Types Name Bangla",
+            'item_type_id': "Item Types ID"
         }
 
 class ItemsForm(forms.ModelForm):
@@ -83,3 +84,15 @@ class PartyInvoiceChildForm(forms.ModelForm):
         self.fields['party_invoice'].empty_label = "--SELECT--"
         self.fields['items'].empty_label = "--SELECT--"
         self.fields['uom'].empty_label = "--SELECT--"
+
+
+class AddItemsDetailsForm(forms.ModelForm):
+    class Meta:
+        model = AddItemsDetails
+        fields = '__all__'
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['items'].empty_label = "--SELECT--"
+        self.fields['dhan_uom'].empty_label = "--SELECT--"
+        self.fields['customer'].empty_label = "--SELECT--"

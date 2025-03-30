@@ -7,9 +7,9 @@
         <div class="col-md-12">
             <div class="invoice_top_left text-center">
                 <h4>XYZ AUTO RICE MILL</h4>
-                <h6>Phone: 01354875609</h6>
-                <h6>E-mail: invoice@gamil.com</h6>
-                <h6>Address: Rupganj, Jashore, Bangladesh</h6>
+                <h6>Phone: {{get_data.customer.phone}}</h6>
+                <h6>E-mail: {{get_data.customer.email}}</h6>
+                <h6>Address: {{get_data.customer.address}}</h6>
             </div>
         </div>
     </div>
@@ -17,15 +17,15 @@
     <div class="row">
         <div class="col-md-6">
             <div class="invoice_topb_middle">
-                <h6>Customer Name: Kamrul Alom</h6>
-                <h6>Phone: 01673459803</h6>
-                <h6>Address: Chanchra, Jashore</h6>
+                <h6>Customer Name: {{get_data.customer.customer_name}}</h6>
+                <h6>Phone: {{get_data.customer.phone}}</h6>
+                <h6>Address: {{get_data.customer.address}}</h6>
             </div>
         </div>
-        <div class="col-md-3"></div>
-        <div class="col-md-3">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
             <div class="invoice_top_middle">
-                <h6>Date: 12/02/2025</h6>
+                <h6>Date: {{get_data.date}}</h6>
                 <h6>Invoice no: 03</h6>
                 <h6>Customer ID: 03243</h6>
             </div>
@@ -39,7 +39,7 @@
                         <th scope="col" style="width: 10%;">SL No</th>
                         <th scope="col" style="width: 30%;">Item Name</th>
                         <th scope="col" style="width: 20%;">Quantity</th>
-                        <th scope="col" style="width: 20%;">Charge</th>
+                        <th scope="col" style="width: 20%;">Unit Price</th>
                         <th scope="col" style="width: 20%;">Total</th>
                     </tr>
                 </thead>
@@ -47,9 +47,9 @@
                     <tr>
                         <td>1</td>
                         <td>Dhan</td>
-                        <td>80 Kg</td>
-                        <td>30 Tk</td>
-                        <td>1000 Tk</td>
+                        <td>{{get_data.dhan_qty}} {{get_data.dhan_uom}}</td>
+                        <td>{{get_data.dhan_unit_price}} Tk</td>
+                        <td>{{get_data.dhan_total}} Tk</td>
                         <!-- <td colspan="5">&nbsp;</td> -->
                     </tr>
                 </tbody>
@@ -64,33 +64,41 @@
                         <th scope="col" style="width: 10%;">SL No</th>
                         <th scope="col" style="width: 30%;">Item Name</th>
                         <th scope="col" style="width: 20%;">Quantity</th>
-                        <th scope="col" style="width: 20%;">Charge</th>
+                        <th scope="col" style="width: 20%;">Unit Price</th>
                         <th scope="col" style="width: 20%;">Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>Chal</td>
-                        <td>10 Kg</td>
-                        <td>30 Tk</td>
-                        <td>300 Tk</td>
+                        <td>Chaul</td>
+                        <td>{{get_data.chaul_qty}} {{get_data.chaul_uom}}</td>
+                        <td>{{get_data.chaul_unit_price}} Tk</td>
+                        <td>{{get_data.chaul_total}} Tk</td>
                         <!-- <td colspan="5">&nbsp;</td> -->
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>Khud</td>
-                        <td>5 Kg</td>
-                        <td>20 Tk</td>
-                        <td>100 Tk</td>
+                        <td>{{get_data.khud_qty}} {{get_data.khud_uom}}</td>
+                        <td>{{get_data.khud_unit_price}} Tk</td>
+                        <td>{{get_data.khud_total}} Tk</td>
                         <!-- <td colspan="5">&nbsp;</td> -->
                     </tr>
                     <tr>
                         <td>3</td>
                         <td>Kura</td>
-                        <td>3 Kg</td>
-                        <td>20 Tk</td>
-                        <td>60 Tk</td>
+                        <td>{{get_data.kura_qty}} {{get_data.kura_uom}}</td>
+                        <td>{{get_data.kura_unit_price}} Tk</td>
+                        <td>{{get_data.kura_total}} Tk</td>
+                        <!-- <td colspan="5">&nbsp;</td> -->
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Chita</td>
+                        <td>{{get_data.chita_qty}} {{get_data.chita_uom}}</td>
+                        <td>{{get_data.chita_unit_price}} Tk</td>
+                        <td>{{get_data.chita_total}} Tk</td>
                         <!-- <td colspan="5">&nbsp;</td> -->
                     </tr>
                 </tbody>
@@ -113,23 +121,23 @@
             <table class="table table-sm table-bordered">
                 <tr>
                     <th>Bill</th>
-                    <td>1000 TK</td>
+                    <td>{{get_data.dhan_total}} TK</td>
                 </tr>
                 <tr>
                     <th>Item Total Bill</th>
-                    <td>460 TK</td>
+                    <td>{{item_total}} TK</td>
                 </tr>
                 <tr>
                     <th>Cash Pay</th>
-                    <td>400 TK</td>
+                    <td>{{get_data.cash_pay}} TK</td>
                 </tr>
                 <tr>
                     <th>Grand Total Balance</th>
-                    <td>350 TK</td>
+                    <td>{{grand_total}} TK</td>
                 </tr>
                 <tr>
                     <th>Due Balance</th>
-                    <td>40 TK</td>
+                    <td>0 TK</td>
                 </tr>
             </table>
         </div>

@@ -5,8 +5,8 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Page, PageNotAnInteger, Paginator, EmptyPage
 
-from .models import Customer, ItemTypes, Items, Uom, PartyInvoices, PartyInvoiceChild
-from .forms import CustomAuthenticationForm, CustomUserCreationForm, CutomerForm, ItemTypesForm, UomForm, ItemsForm, PartyInvoiceForm, PartyInvoiceChildForm
+from .models import Customer, ItemTypes, Items, Uom, PartyInvoices, PartyInvoiceChild, AddItemsDetails
+from .forms import CustomAuthenticationForm, CustomUserCreationForm, CutomerForm, ItemTypesForm, UomForm, ItemsForm, PartyInvoiceForm, PartyInvoiceChildForm, AddItemsDetailsForm
 
 # Create your views here.
 
@@ -380,7 +380,76 @@ def party_invoice_child_delete_view(request, pk):
     messages.success(request, 'Party Invoice Child Deleted Successfully!!!')
     return redirect('party_invoice_child_index')
 
+
+@login_required(login_url='login')
+def addItems_details_index_view(request):
+    items = AddItemsDetails.objects.all()
+    context = {
+        'items': items
+    }
+    return render(request, 'pages/add_Items_details/index.html', context)
+
+@login_required(login_url='login')
+def addItems_details_create_view(request):
+    form = AddItemsDetailsForm()
+    if request.method == "POST":
+        form = AddItemsDetailsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Items is Saved Successfully!!")
+            return redirect('add_items_details_index')
+        else:
+            messages.error(request, "Invalid Form!! Please Check The Form")
+    else:
+        form = AddItemsDetailsForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'pages/add_Items_details/create.html', context)
+
+@login_required(login_url='login')
+def addItems_details_update_view(request, pk):
+    get_obj = AddItemsDetails.objects.get(id=pk)
+    form = AddItemsDetailsForm(instance=get_obj)
+    if request.method == "POST":
+        form = AddItemsDetailsForm(request.POST, instance=get_obj)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Items Details Updated Successfully!!!")
+            return redirect("add_items_details_index")
+        else:
+            print(form.errors)
+    context = {
+        'form': form
+    }
+    return render(request, 'pages/add_Items_details/update.html', context)
+
+@login_required(login_url='login')
+def addItems_sigle_details_view(request, pk):
+    get_obj = AddItemsDetails.objects.get(id=pk)
+    context = {
+        'get_obj': get_obj
+    }
+    return render(request, 'pages/add_Items_details/details.html', context)
+
+@login_required(login_url='login')
+def addItems_details_delete_view(request, pk):
+    get_obj = get_object_or_404(AddItemsDetails, id=pk)
+    get_obj.delete()
+    messages.success(request, 'Items Deleted Successfully!!!')
+    return redirect('add_items_details_index')
+
 @login_required(login_url='login')
 def party_invoice_generation_view(request, pk):
+    get_data = AddItemsDetails.objects.get(id=pk)
+    item_total = get_data.chaul_total + get_data.khud_total + get_data.kura_total + get_data.chita_total
+    grand_total = get_data.dhan_total - (get_data.cash_pay + item_total)
+    print("tita", item_total)
+
+    context = {
+        'get_data': get_data,
+        'item_total': item_total,
+        'grand_total': grand_total,
+    }
     
-    return render(request, 'pages/invoice.html')
+    return render(request, 'pages/invoice.html', context)

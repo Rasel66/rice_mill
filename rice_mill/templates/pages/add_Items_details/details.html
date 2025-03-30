@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Items Details{% endblock  %}
+{% block content %}
+<div class="container base-container card" style="background-color: white; min-height: 100vh;">
+    <div class="row">
+        <div class="mt-2">
+            <div class="card-header bg-light fw-bold">
+              <div class="row">
+                <div class="col-md-4">
+                    <h5>Items Details</h5>
+                </div>
+                <div class="col-md-5" style="text-align: right;">
+                    <h6>Customer: {{get_obj.customer}}</h6>
+                </div>
+                <div class="col-md-3" style="text-align: right;">
+                    <h6>Date: {{get_obj.date}}</h6>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr><th colspan="2" class="text-center">Dhan</th></tr>
+                                <tr>
+                                    <th>Quantity</th>
+                                    <td>{{get_obj.dhan_qty}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Unit Price</th>
+                                    <td>{{get_obj.dhan_unit_price}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td>{{get_obj.dhan_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th>UOM</th>
+                                    <td>{{get_obj.dhan_uom}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>{{get_obj.date}}</td>
+                                </tr>
+
+                                <tr><th colspan="2" class="text-center">Chaul</th></tr>
+                                <tr>
+                                    <th>Quantity</th>
+                                    <td>{{get_obj.chaul_qty}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Unit Price</th>
+                                    <td>{{get_obj.chaul_unit_price}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td>{{get_obj.chaul_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th>UOM</th>
+                                    <td>{{get_obj.chaul_uom}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>{{get_obj.date}}</td>
+                                </tr>
+
+                                <tr><th colspan="2" class="text-center">Chita</th></tr>
+                                <tr>
+                                    <th>Quantity</th>
+                                    <td>{{get_obj.chita_qty}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Unit Price</th>
+                                    <td>{{get_obj.chita_unit_price}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td>{{get_obj.chita_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th>UOM</th>
+                                    <td>{{get_obj.chita_uom}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>{{get_obj.date}}</td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr><th colspan="2" class="text-center">Khud</th></tr>
+                                <tr>
+                                    <th>Quantity</th>
+                                    <td>{{get_obj.khud_qty}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Unit Price</th>
+                                    <td>{{get_obj.khud_unit_price}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td>{{get_obj.khud_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th>UOM</th>
+                                    <td>{{get_obj.khud_uom}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>{{get_obj.date}}</td>
+                                </tr>
+
+                                <tr><th colspan="2" class="text-center">Kura</th></tr>
+                                <tr>
+                                    <th>Quantity</th>
+                                    <td>{{get_obj.kura_qty}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Unit Price</th>
+                                    <td>{{get_obj.kura_unit_price}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td>{{get_obj.kura_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th>UOM</th>
+                                    <td>{{get_obj.kura_uom}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>{{get_obj.date}}</td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
