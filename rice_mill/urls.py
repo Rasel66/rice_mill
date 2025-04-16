@@ -44,4 +44,8 @@ urlpatterns = [
     path('add-items-details/delete/<int:pk>', addItems_details_delete_view, name='add_items_details_delete'),
 
     path('party-invoice/generation/<int:pk>', party_invoice_generation_view, name='party_invoice_generation'),
+
+    # AJAX URL
+    path('ajax/load-phone-no/', ajax_load_phone_no, name='ajax_load_phone_no'),
+    path('ajax/load-address/', ajax_load_address, name='ajax_load_address'),
 ]

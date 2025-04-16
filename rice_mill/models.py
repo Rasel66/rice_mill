@@ -102,8 +102,7 @@ class PartyInvoiceChild(models.Model):
 
 class AddItemsDetails(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT, related_name='addItemDetails_customer')
-    items = models.ForeignKey(ItemTypes, on_delete=models.PROTECT, related_name='additems_items')
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField()
     cash_pay = models.FloatField(blank=True, null=True)
     dhan_uom = models.ForeignKey(Uom, on_delete=models.PROTECT, related_name="additems_uom_dhan")
     dhan_qty = models.FloatField()

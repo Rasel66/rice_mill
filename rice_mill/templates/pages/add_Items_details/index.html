@@ -35,18 +35,24 @@
                   <tr>
                     <th class="text-center">SL</th>
                     <th class="text-center">Customer</th>
-                    <th class="text-center">Items</th>
+                    <th class="text-center">Phone No</th>
+                    <th class="text-center">Address</th>
                     <th class="text-center">Total</th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                     {% if items %}
-                    {% for item in items %}
+                    {% regroup items by customer as grouped_obj_list %}
+                    {% for group in grouped_obj_list %}
+                    {% for item in group.list %}
                     <tr>
-                      <td class="text-center">{{forloop.counter}}</td>
-                      <td class="text-center">{{item.customer}}</td>
-                      <td class="text-center">{{item.items}}</td>
+                      {% if forloop.first %}
+                      <td class="text-center" rowspan="{{group.list|length}}">{{forloop.parentloop.counter}}</td>
+                      <td class="text-center" rowspan="{{group.list|length}}">{{group.grouper}}</td>
+                      {% endif %}
+                      <td class="text-center">{{item.customer.phone}}</td>
+                      <td class="text-center">{{item.customer.address}}</td>
                       <td class="text-center">{{item.dhan_total}}</td>
                       <td class="text-center">
                         <ul class="action">
@@ -73,6 +79,7 @@
                         </ul> 
                       </td>
                     </tr>
+                    {% endfor %}
                     {% endfor %}
                     {% else %}
                     <tr>

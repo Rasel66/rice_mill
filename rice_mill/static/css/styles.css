@@ -94,5 +94,25 @@ a.delete-click {
     background-color: #0d6efd !important;
     color: white !important;
 }
-
-
+.item_heading{
+    background-color: #0d6efd;
+    border-radius: 4px;
+    padding: 6px 0;
+}
+.item_heading h6{
+    color: white;
+    font-weight: bold;
+}
+.customer_info{
+    border: 2px dashed #0d6efd;
+    background-color: #0d6efd;
+    border-radius: 4px;
+    padding: 5px 5px;
+}
+.customer_info label{
+    color: white;
+    margin-bottom: 5px;
+}
+.items_info label{
+    margin-bottom: 5px;
+}

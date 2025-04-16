@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Page, PageNotAnInteger, Paginator, EmptyPage
 
@@ -383,7 +384,9 @@ def party_invoice_child_delete_view(request, pk):
 
 @login_required(login_url='login')
 def addItems_details_index_view(request):
-    items = AddItemsDetails.objects.all()
+    items = AddItemsDetails.objects.all().order_by('date')
+    for item in items:
+        item.group_key = f"{item.customer} - {item.customer.phone}"
     context = {
         'items': items
     }
@@ -453,3 +456,16 @@ def party_invoice_generation_view(request, pk):
     }
     
     return render(request, 'pages/invoice.html', context)
+
+# AJAX VIEW
+@login_required(login_url='login')
+def ajax_load_phone_no(request):
+    customer_id = request.GET.get('customer_id')
+    phone_no = list(Customer.objects.filter(id=customer_id).values_list("phone", flat=True))
+    return JsonResponse({"phone_no": phone_no})
+
+@login_required(login_url='login')
+def ajax_load_address(request):
+    customer_id = request.GET.get('customer_id')
+    address = list(Customer.objects.filter(id=customer_id).values_list("address", flat=True))
+    return JsonResponse({"address": address})

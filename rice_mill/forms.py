@@ -87,12 +87,37 @@ class PartyInvoiceChildForm(forms.ModelForm):
 
 
 class AddItemsDetailsForm(forms.ModelForm):
+    phone_no = forms.CharField(disabled=True, label="Phone No", required=False)
+    address = forms.CharField(disabled=True, label="Address", required=False)
     class Meta:
         model = AddItemsDetails
         fields = '__all__'
+        labels = {
+            'dhan_uom': "UOM",
+            'dhan_qty': "Quantity",
+            'dhan_unit_price': "Unit Price",
+            'khud_uom': "UOM",
+            'khud_qty': "Quantity",
+            'khud_unit_price': "Unit Price",
+            'kura_uom': "UOM",
+            'kura_qty': "Quantity",
+            'kura_unit_price': "Unit Price",
+            'chaul_uom': "UOM",
+            'chaul_qty': "Quantity",
+            'chaul_unit_price': "Unit Price",
+            'chita_uom': "UOM",
+            'chita_qty': "Quantity",
+            'chita_unit_price': "Unit Price",
+        }
+        widgets = {
+            'date': forms.DateInput(attrs={'type':'date'})
+        }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['items'].empty_label = "--SELECT--"
         self.fields['dhan_uom'].empty_label = "--SELECT--"
+        self.fields['chaul_uom'].empty_label = "--SELECT--"
+        self.fields['kura_uom'].empty_label = "--SELECT--"
+        self.fields['chita_uom'].empty_label = "--SELECT--"
+        self.fields['khud_uom'].empty_label = "--SELECT--"
         self.fields['customer'].empty_label = "--SELECT--"
