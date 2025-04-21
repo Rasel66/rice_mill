@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-from .models import CustomUser, Customer, ItemTypes, Items, Uom, PartyInvoices, PartyInvoiceChild, AddItemsDetails
+from .models import CustomUser, Customer, ItemTypes, Items, Uom, PartyInvoices, PartyInvoiceChild, AddItemsDetails, SellCustomers, SellsInvoices
 
 # Authentication form start
 
@@ -121,3 +121,17 @@ class AddItemsDetailsForm(forms.ModelForm):
         self.fields['chita_uom'].empty_label = "--SELECT--"
         self.fields['khud_uom'].empty_label = "--SELECT--"
         self.fields['customer'].empty_label = "--SELECT--"
+
+# SELLS CUSTOMER FORM
+class SellsCustomerForm(forms.ModelForm):
+    class Meta:
+        model = SellCustomers
+        fields = '__all__'
+        labels = {
+            'customer_name': "Customer Name",
+            'customer_name_bn': "Customer Name Bangla",
+        }
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'})
+        }
+

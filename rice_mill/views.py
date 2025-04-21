@@ -6,8 +6,8 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Page, PageNotAnInteger, Paginator, EmptyPage
 
-from .models import Customer, ItemTypes, Items, Uom, PartyInvoices, PartyInvoiceChild, AddItemsDetails
-from .forms import CustomAuthenticationForm, CustomUserCreationForm, CutomerForm, ItemTypesForm, UomForm, ItemsForm, PartyInvoiceForm, PartyInvoiceChildForm, AddItemsDetailsForm
+from .models import Customer, ItemTypes, Items, Uom, PartyInvoices, PartyInvoiceChild, AddItemsDetails, SellCustomers
+from .forms import CustomAuthenticationForm, CustomUserCreationForm, CutomerForm, ItemTypesForm, UomForm, ItemsForm, PartyInvoiceForm, PartyInvoiceChildForm, AddItemsDetailsForm, SellsCustomerForm
 
 # Create your views here.
 
@@ -456,6 +456,67 @@ def party_invoice_generation_view(request, pk):
     }
     
     return render(request, 'pages/invoice.html', context)
+
+# SELLS CUSTOMER
+@login_required(login_url='login')
+def sells_customer_index_view(request):
+    obj_list = SellCustomers.objects.all().order_by('-id')
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(obj_list, 30)
+    try:
+        obj_list = paginator.page(page)
+    except PageNotAnInteger:
+        obj_list = paginator.page(1)
+    except EmptyPage:
+        obj_list = paginator.page(paginator.num_pages)
+    context = {
+        'obj_list': obj_list
+    }
+    return render(request, 'pages/sell_customers/index.html', context)
+
+@login_required(login_url='login')
+def sells_customer_create_view(request):
+    form = SellsCustomerForm()
+    if request.method == "POST":
+        form = SellsCustomerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Sells Customer Created Successfully!!!")
+            return redirect("sells_customer_index")
+        else:
+            print(form.errors)
+    else:
+        form = SellsCustomerForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'pages/sell_customers/create.html', context)
+
+@login_required(login_url='login')
+def sells_customer_update_view(request, pk):
+    get_obj = SellCustomers.objects.get(id=pk)
+    form = SellsCustomerForm(instance=get_obj)
+    if request.method == "POST":
+        form = SellsCustomerForm(request.POST, instance=get_obj)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Sells Customer Update Successfully!!!")
+            return redirect("sells_customer_index")
+        else:
+            print(form.errors)
+    context = {
+        'form': form
+    }
+    return render(request, 'pages/sell_customers/update.html', context)
+
+@login_required(login_url='login')
+def sells_customer_delete_view(request, pk):
+    get_obj = get_object_or_404(SellCustomers, id=pk)
+    get_obj.delete()
+    messages.success(request, "Sells Customer Deleted!!!")
+    return redirect("sells_customer_index")
+
 
 # AJAX VIEW
 @login_required(login_url='login')

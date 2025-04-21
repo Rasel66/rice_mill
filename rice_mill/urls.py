@@ -43,6 +43,11 @@ urlpatterns = [
     path('add-items-details/single/<int:pk>', addItems_sigle_details_view, name='add_items_single_details'),
     path('add-items-details/delete/<int:pk>', addItems_details_delete_view, name='add_items_details_delete'),
 
+    path('sells-customer/index/', sells_customer_index_view, name='sells_customer_index'),
+    path('sells-customer/create/', sells_customer_create_view, name='sells_customer_create'),
+    path('sells-customer/update/<int:pk>', sells_customer_update_view, name='sells_customer_update'),
+    path('sells-customer/delete/<int:pk>', sells_customer_delete_view, name='sells_customer_delete'),
+
     path('party-invoice/generation/<int:pk>', party_invoice_generation_view, name='party_invoice_generation'),
 
     # AJAX URL

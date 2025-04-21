@@ -148,5 +148,70 @@ class AddItemsDetails(models.Model):
 
     def __str__(self):
         return self.customer.customer_name
+    
+
+class SellCustomers(models.Model):
+    customer_name = models.CharField(max_length=250)
+    customer_name_bn = models.CharField(max_length=250, blank=True, null=True)
+    phone = models.CharField(max_length=20)
+    email = models.EmailField()
+    address = models.CharField(max_length=250)
+    date = models.DateField()
+
+    def __str__(self):
+        return self.customer_name
+
+class Stocks(models.Model):
+    chaul_qty = models.FloatField(blank=True, null=True)
+    khud_qty = models.FloatField(blank=True, null=True)
+    kura_qty = models.FloatField(blank=True, null=True)
+    chita_qty = models.FloatField(blank=True, null=True)
+
+class SellsInvoices(models.Model):
+    sells_customer = models.ForeignKey(SellCustomers, on_delete=models.PROTECT)
+    advance_amount = models.FloatField()
+    total_bill_amount = models.FloatField(blank=True, null=True)
+    paid_amount = models.FloatField()
+    balance = models.FloatField(blank=True, null=True)
+    prev_due = models.FloatField(blank=True, null=True)
+    current_due = models.FloatField(blank=True, null=True)
+    remarks = models.CharField(max_length=250, blank=True, null=True)
+    chaul_uom = models.ForeignKey(Uom, on_delete=models.PROTECT, related_name="chaul_invoices")
+    chaul_qty = models.FloatField(blank=True, null=True)
+    chaul_unit_price = models.FloatField(blank=True, null=True)
+    chaul_total = models.FloatField(blank=True, null=True)
+    khud_uom = models.ForeignKey(Uom, on_delete=models.PROTECT, related_name="khud_invoices")
+    khud_qty = models.FloatField(blank=True, null=True)
+    khud_unit_price = models.FloatField(blank=True, null=True)
+    khud_total = models.FloatField(blank=True, null=True)
+    kura_uom = models.ForeignKey(Uom, on_delete=models.PROTECT, related_name="kura_invoices")
+    kura_qty = models.FloatField(blank=True, null=True)
+    kura_unit_price = models.FloatField(blank=True, null=True)
+    kura_total = models.FloatField(blank=True, null=True)
+    chita_uom = models.ForeignKey(Uom, on_delete=models.PROTECT, related_name="chita_invoices")
+    chita_qty = models.FloatField(blank=True, null=True)
+    chita_unit_price = models.FloatField(blank=True, null=True)
+    chita_total = models.FloatField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if self.chaul_uom.uom_name == "MON" or self.khud_uom.uom_name == "MON" or self.kura_uom.uom_name == "MON" or self.chita_uom.uom_name == "MON":
+            self.chaul_total = self.chaul_qty * self.chaul_unit_price
+            self.khud_total = self.khud_qty * self.khud_unit_price
+            self.kura_total = self.kura_qty * self.kura_unit_price
+            self.chita_total = self.chita_qty * self.chita_unit_price
+        elif self.chaul_uom.uom_name == "KG" or self.khud_uom.uom_name == "KG" or self.kura_uom.uom_name == "KG" or self.chita_uom.uom_name == "KG":
+            self.chaul_total = (self.chaul_qty / 40) * self.chaul_unit_price
+            self.kura_total = (self.kura_qty / 40) * self.kura_unit_price
+            self.khud_total = (self.khud_qty / 40) * self.khud_unit_price
+            self.chita_total = (self.chita_qty / 40) * self.chita_unit_price
+        else:
+            self.chaul_total = 0
+            self.kura_total = 0
+            self.khud_total = 0
+            self.chita_total = 0
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.sells_customer.customer_name
 
 
