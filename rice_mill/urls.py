@@ -48,6 +48,8 @@ urlpatterns = [
     path('sells-customer/update/<int:pk>', sells_customer_update_view, name='sells_customer_update'),
     path('sells-customer/delete/<int:pk>', sells_customer_delete_view, name='sells_customer_delete'),
 
+    path('stocks/', stock_index_view, name='stocks'),
+
     path('party-invoice/generation/<int:pk>', party_invoice_generation_view, name='party_invoice_generation'),
 
     # AJAX URL

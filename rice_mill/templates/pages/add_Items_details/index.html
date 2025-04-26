@@ -37,6 +37,7 @@
                     <th class="text-center">Customer</th>
                     <th class="text-center">Phone No</th>
                     <th class="text-center">Address</th>
+                    <th class="text-center">Cash Pay</th>
                     <th class="text-center">Total</th>
                     <th class="text-center">Action</th>
                   </tr>
@@ -53,6 +54,7 @@
                       {% endif %}
                       <td class="text-center">{{item.customer.phone}}</td>
                       <td class="text-center">{{item.customer.address}}</td>
+                      <td class="text-center">{{item.cash_pay}}</td>
                       <td class="text-center">{{item.dhan_total}}</td>
                       <td class="text-center">
                         <ul class="action">
@@ -83,7 +85,7 @@
                     {% endfor %}
                     {% else %}
                     <tr>
-                        <td colspan="5" class="text-center">Data not found</td>
+                        <td colspan="7" class="text-center">Data not found</td>
                     </tr>
                     {% endif %}
                 </tbody>

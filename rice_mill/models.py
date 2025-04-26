@@ -126,6 +126,7 @@ class AddItemsDetails(models.Model):
     chita_total = models.FloatField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
+        is_new = self._state.adding
         if self.dhan_uom.uom_name == "MON" or self.chaul_uom.uom_name == "MON" or self.khud_uom.uom_name == "MON" or self.kura_uom.uom_name == "MON" or self.chita_uom.uom_name == "MON":
             self.dhan_total = self.dhan_qty * self.dhan_unit_price
             self.chaul_total = self.chaul_qty * self.chaul_unit_price
@@ -145,6 +146,31 @@ class AddItemsDetails(models.Model):
             self.khud_total = 0
             self.chita_total = 0
         super().save(*args, **kwargs)
+
+        if is_new:
+            from .models import Stocks
+            stock, created  = Stocks.objects.get_or_create(id=1)
+            
+            stock.chaul_qty = (stock.chaul_qty or 0) + (self.chaul_qty or 0)
+            stock.khud_qty = (stock.khud_qty or 0) + (self.khud_qty or 0)
+            stock.kura_qty = (stock.kura_qty or 0) + (self.kura_qty or 0)
+            stock.chita_qty = (stock.chita_qty or 0) + (self.chita_qty or 0)
+
+            stock.save()
+        
+    def delete(self, *args, **kwargs):
+        from .models import Stocks
+        stock = Stocks.objects.first()
+
+        if stock:
+            stock.chaul_qty = (stock.chaul_qty or 0) - (self.chaul_qty or 0)
+            stock.khud_qty = (stock.khud_qty or 0) - (self.khud_qty or 0)
+            stock.kura_qty = (stock.kura_qty or 0) - (self.kura_qty or 0)
+            stock.chita_qty = (stock.chita_qty or 0) - (self.chita_qty or 0)
+
+            stock.save()
+
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         return self.customer.customer_name

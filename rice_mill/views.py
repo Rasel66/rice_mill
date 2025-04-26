@@ -3,10 +3,11 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
+from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Page, PageNotAnInteger, Paginator, EmptyPage
 
-from .models import Customer, ItemTypes, Items, Uom, PartyInvoices, PartyInvoiceChild, AddItemsDetails, SellCustomers
+from .models import Customer, ItemTypes, Items, Uom, PartyInvoices, PartyInvoiceChild, AddItemsDetails, SellCustomers, Stocks
 from .forms import CustomAuthenticationForm, CustomUserCreationForm, CutomerForm, ItemTypesForm, UomForm, ItemsForm, PartyInvoiceForm, PartyInvoiceChildForm, AddItemsDetailsForm, SellsCustomerForm
 
 # Create your views here.
@@ -445,14 +446,40 @@ def addItems_details_delete_view(request, pk):
 @login_required(login_url='login')
 def party_invoice_generation_view(request, pk):
     get_data = AddItemsDetails.objects.get(id=pk)
-    item_total = get_data.chaul_total + get_data.khud_total + get_data.kura_total + get_data.chita_total
-    grand_total = get_data.dhan_total - (get_data.cash_pay + item_total)
-    print("tita", item_total)
+    item_total = sum(filter(None, [
+        get_data.chaul_total,
+        get_data.khud_total,
+        get_data.kura_total,
+        get_data.chita_total
+    ]))
+
+    cash_pay = get_data.cash_pay or 0
+    grand_total = (get_data.dhan_total or 0) - (cash_pay + item_total)
+
+    due_balance = abs(grand_total)
+
+    previous_transaction = AddItemsDetails.objects.filter(customer=get_data.customer).exclude(id=pk)
+    previous_due = 0
+    for transaction in previous_transaction:
+        prev_item_total = sum(filter(None, [
+            transaction.chaul_total,
+            transaction.khud_total,
+            transaction.kura_total,
+            transaction.chita_total
+        ]))
+        prev_cash_pay = transaction.cash_pay or 0
+        prev_grand_total = (transaction.dhan_total or 0) - (prev_cash_pay + prev_item_total)
+        previous_due += abs(prev_grand_total)
+
+    total_due_balance = previous_due + due_balance
 
     context = {
         'get_data': get_data,
         'item_total': item_total,
         'grand_total': grand_total,
+        'due_balance': due_balance,
+        'previous_due': previous_due,
+        'total_due_balance': total_due_balance,
     }
     
     return render(request, 'pages/invoice.html', context)
@@ -517,6 +544,16 @@ def sells_customer_delete_view(request, pk):
     messages.success(request, "Sells Customer Deleted!!!")
     return redirect("sells_customer_index")
 
+# STOCK VIEWS
+
+@login_required(login_url='login')
+def stock_index_view(request):
+    obj_list = Stocks.objects.first()
+    print("STocks", obj_list)
+    context = {
+        'obj_list': obj_list
+    }
+    return render(request, 'pages/stocks.html', context)
 
 # AJAX VIEW
 @login_required(login_url='login')
