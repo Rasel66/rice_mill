@@ -48,9 +48,14 @@ urlpatterns = [
     path('sells-customer/update/<int:pk>', sells_customer_update_view, name='sells_customer_update'),
     path('sells-customer/delete/<int:pk>', sells_customer_delete_view, name='sells_customer_delete'),
 
+    path('sells-customer/transaction/index/', sells_customer_transaction_index_view, name='sells_customer_transaction_index'),
+    path('sells-customer/transaction/create/', sells_customer_transaction_create_view, name='sells_customer_transaction_create'),
+    path('sells-customer/transaction/delete/<int:pk>', sells_customer_transaction_delete_view, name='sells_customer_transaction_delete'),
+
     path('stocks/', stock_index_view, name='stocks'),
 
     path('party-invoice/generation/<int:pk>', party_invoice_generation_view, name='party_invoice_generation'),
+    path('sells-customer/invoice/generation/<int:pk>', sells_customer_invoice_generation_view, name='sells_customer_invoice_generation'),
 
     # AJAX URL
     path('ajax/load-phone-no/', ajax_load_phone_no, name='ajax_load_phone_no'),

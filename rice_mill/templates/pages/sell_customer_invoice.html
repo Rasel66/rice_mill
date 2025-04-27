@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Invoice{% endblock  %}
+{% block content %}
+<div class="invoice-container card" style="margin-top: 15px; margin-bottom: 15px;">
+    <div class="row p-3" style="background-color: #0d6efd; color: white; border-radius: 6px;">
+        <div class="col-md-12">
+            <div class="invoice_top_left text-center">
+                <h4>SUMON AUTO RICE MILL</h4>
+                <h6>Phone: {{get_data.customer.phone}}</h6>
+                <h6>E-mail: {{get_data.customer.email}}</h6>
+                <h6>Address: {{get_data.customer.address}}</h6>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="invoice_topb_middle">
+                <h6><b>Customer Name:</b> {{get_data.customer.customer_name}}</h6>
+                <h6><b>Phone:</b> {{get_data.customer.phone}}</h6>
+                <h6><b>Address:</b> {{get_data.customer.address}}</h6>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <div class="invoice_top_middle">
+                <h6><b>Date:</b> {{get_data.date}}</h6>
+                <h6><b>Invoice no:</b> 03</h6>
+                <h6><b>Customer ID:</b> 03243</h6>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table mt-2" style="width: 100%;">
+                <thead>
+                    <tr class="invoice-table">
+                        <th scope="col" style="width: 10%;">SL No</th>
+                        <th scope="col" style="width: 30%;">Item Name</th>
+                        <th scope="col" style="width: 20%;">Quantity</th>
+                        <th scope="col" style="width: 20%;">Unit Price</th>
+                        <th scope="col" style="width: 20%;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Chaul</td>
+                        <td>{{get_data.chaul_qty}} {{get_data.chaul_uom}}</td>
+                        <td>{{get_data.chaul_unit_price}} Tk</td>
+                        <td>{{get_data.chaul_total}} Tk</td>
+                        <!-- <td colspan="5">&nbsp;</td> -->
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Khud</td>
+                        <td>{{get_data.khud_qty}} {{get_data.khud_uom}}</td>
+                        <td>{{get_data.khud_unit_price}} Tk</td>
+                        <td>{{get_data.khud_total}} Tk</td>
+                        <!-- <td colspan="5">&nbsp;</td> -->
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Kura</td>
+                        <td>{{get_data.kura_qty}} {{get_data.kura_uom}}</td>
+                        <td>{{get_data.kura_unit_price}} Tk</td>
+                        <td>{{get_data.kura_total}} Tk</td>
+                        <!-- <td colspan="5">&nbsp;</td> -->
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Chita</td>
+                        <td>{{get_data.chita_qty}} {{get_data.chita_uom}}</td>
+                        <td>{{get_data.chita_unit_price}} Tk</td>
+                        <td>{{get_data.chita_total}} Tk</td>
+                        <!-- <td colspan="5">&nbsp;</td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="footer">
+                <p><span class="bold">Special Instructions:</span></p>
+                <p>1. Total payment due in 30 days</p>
+                <p>2. Please include the invoice number on your check</p>
+                <p>Make all checks payable to <b>Sumon Auto Rice Mill</b></p>
+            </div>
+            <div class="signature">
+                <p>Authorized Signature: ______________________</p>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <table class="table table-sm table-bordered">
+                <tr>
+                    <th>Total Bill</th>
+                    <td>{{item_total}} TK</td>
+                </tr>
+                <tr>
+                    <th>Cash Pay</th>
+                    <td>{{get_data.cash_pay}} TK</td>
+                </tr>
+                <tr>
+                    <th>Current Due</th>
+                    <td>{{ due_balance }} TK</td>
+                </tr>
+                <tr>
+                    <th>Previous Due</th>
+                    <td>{{ previous_due }} TK</td>
+                </tr>
+                <tr>
+                    <th>Total Due Balance</th>
+                    <td>{{ total_due_balance }} TK</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block blockJs %}
+
+{% endblock %}
