@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Buy Items{% endblock  %}
+{% block content %}
+<div class="container base-container card" style="background-color: white;">
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <div class="title-text">
+                <h5>Buy Items</h5>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-8 items_info">
+                    <div class="item_heading text-center">
+                        <h6>Chaul</h6>
+                    </div>
+                    <div class="row my-3 mb-4">
+                        <div class="col-md-4">
+                            {{form.chaul_uom|as_crispy_field}}
+                        </div>
+                        <div class="col-md-4">
+                            {{form.chaul_qty|as_crispy_field}}
+                        </div>
+                        <div class="col-md-4">
+                            {{form.chaul_unit_price|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="item_heading text-center">
+                        <h6>Khud</h6>
+                    </div>
+                    <div class="row my-3 mb-4">
+                        <div class="col-md-4">
+                            {{form.khud_uom|as_crispy_field}}
+                        </div>
+                        <div class="col-md-4">
+                            {{form.khud_qty|as_crispy_field}}
+                        </div>
+                        <div class="col-md-4">
+                            {{form.khud_unit_price|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="item_heading text-center">
+                        <h6>Kura</h6>
+                    </div>
+                    <div class="row my-3 mb-4">
+                        <div class="col-md-4">
+                            {{form.kura_uom|as_crispy_field}}
+                        </div>
+                        <div class="col-md-4">
+                            {{form.kura_qty|as_crispy_field}}
+                        </div>
+                        <div class="col-md-4">
+                            {{form.kura_unit_price|as_crispy_field}}
+                        </div>
+                    </div>
+                    <div class="item_heading text-center">
+                        <h6>Chita</h6>
+                    </div>
+                    <div class="row my-3 mb-4">
+                        <div class="col-md-4">
+                            {{form.chita_uom|as_crispy_field}}
+                        </div>
+                        <div class="col-md-4">
+                            {{form.chita_qty|as_crispy_field}}
+                        </div>
+                        <div class="col-md-4">
+                            {{form.chita_unit_price|as_crispy_field}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="item_heading text-center">
+                        <h6>Customer Information</h6>
+                    </div>
+                    <br>
+                    <div class="customer_info">
+                        <div class="row my-2">
+                            <div class="col-md-12">
+                                {{form.customer|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-md-12">
+                                {{form.phone_no|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-md-12">
+                                {{form.address|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-md-12">
+                                {{form.cash_pay|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-md-12">
+                                {{form.date|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class='text-center m-3'>
+                <button type="submit" class="btn btn-info">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock  %}
+{% block blockJs %}
+<script>
+    var load_phone_no_url = "{% url 'ajax_load_phone_no' %}"
+    var load_address_url = "{% url 'ajax_load_address' %}"
+
+    $(document).ready(function(){
+        $("#id_customer").change(function(){
+            var customer_id = $(this).val()
+            $.ajax({
+                url: load_phone_no_url,
+                data: {
+                    'customer_id': customer_id
+                },
+                success: function(data){
+                    $("#id_phone_no").val(data.phone_no)
+                },
+            });
+            $.ajax({
+                url: load_address_url,
+                data: {
+                    'customer_id': customer_id
+                },
+                success: function(data){
+                    $("#id_address").val(data.address)
+                }
+            })
+        })
+    })
+    
+</script>
+     
+{% endblock %}

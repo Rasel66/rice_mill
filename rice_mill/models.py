@@ -194,10 +194,10 @@ class Stocks(models.Model):
     chita_qty = models.FloatField(blank=True, null=True)
 
 class SellsInvoices(models.Model):
-    sells_customer = models.ForeignKey(SellCustomers, on_delete=models.PROTECT)
-    advance_amount = models.FloatField()
+    customer = models.ForeignKey(SellCustomers, on_delete=models.PROTECT)
+    advance_amount = models.FloatField(blank=True, null=True)
     total_bill_amount = models.FloatField(blank=True, null=True)
-    paid_amount = models.FloatField()
+    cash_pay = models.FloatField()
     balance = models.FloatField(blank=True, null=True)
     prev_due = models.FloatField(blank=True, null=True)
     current_due = models.FloatField(blank=True, null=True)
@@ -218,8 +218,10 @@ class SellsInvoices(models.Model):
     chita_qty = models.FloatField(blank=True, null=True)
     chita_unit_price = models.FloatField(blank=True, null=True)
     chita_total = models.FloatField(blank=True, null=True)
+    date = models.DateField()
 
     def save(self, *args, **kwargs):
+        is_new = self._state.adding
         if self.chaul_uom.uom_name == "MON" or self.khud_uom.uom_name == "MON" or self.kura_uom.uom_name == "MON" or self.chita_uom.uom_name == "MON":
             self.chaul_total = self.chaul_qty * self.chaul_unit_price
             self.khud_total = self.khud_qty * self.khud_unit_price
@@ -237,7 +239,32 @@ class SellsInvoices(models.Model):
             self.chita_total = 0
         super().save(*args, **kwargs)
 
+        if is_new:
+            from .models import Stocks
+            stock = Stocks.objects.first()
+            if stock:
+                stock.chaul_qty = (stock.chaul_qty or 0) - (self.chaul_qty or 0)
+                stock.khud_qty = (stock.khud_qty or 0) - (self.khud_qty or 0)
+                stock.kura_qty = (stock.kura_qty or 0) - (self.kura_qty or 0)
+                stock.chita_qty = (stock.chita_qty or 0) - (self.chita_qty or 0)
+
+                stock.save()
+
+    def delete(self, *args, **kwargs):
+        from .models import Stocks
+        stock = Stocks.objects.first()
+
+        if stock:
+            stock.chaul_qty = (stock.chaul_qty or 0) + (self.chaul_qty or 0)
+            stock.khud_qty = (stock.khud_qty or 0) + (self.khud_qty or 0)
+            stock.kura_qty = (stock.kura_qty or 0) + (self.kura_qty or 0)
+            stock.chita_qty = (stock.chita_qty or 0) + (self.chita_qty or 0)
+
+            stock.save()
+
+        super().delete(*args, **kwargs)
+
     def __str__(self):
-        return self.sells_customer.customer_name
+        return self.customer.customer_name
 
 
