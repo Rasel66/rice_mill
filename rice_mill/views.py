@@ -584,6 +584,10 @@ def sells_customer_transaction_create_view(request):
     return render(request, 'pages/sell_customer_invoice/create.html', context)
 
 @login_required(login_url='login')
+def sells_customer_transaction_update_view(request, pk):
+    form = 
+
+@login_required(login_url='login')
 def sells_customer_transaction_delete_view(request, pk):
     get_obj = get_object_or_404(SellsInvoices, id=pk)
     get_obj.delete()
