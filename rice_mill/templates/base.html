@@ -31,7 +31,10 @@
                               <li class="nav-item">
                                 <a class="nav-link" style="color: white !important;" href="#">Dashboard</a>
                               </li>
-                              <li class="nav-item dropdown">
+                              <li class="nav-item">
+                                <a class="nav-link" style="color: white !important;" href="{% url 'stocks' %}">Stocks</a>
+                              </li>
+                              {% comment %} <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" style="color: white !important;" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
                                 <div class="dropdown-menu" style="background: #0d6efd">
                                   <a class="dropdown-item" style="color: white !important;" href="{% url 'item_types_index' %}">Item Types</a>
@@ -39,25 +42,25 @@
                                   <a class="dropdown-item" style="color: white !important;" href="{% url 'party_invoice_child_index' %}">Buying Items</a>
                                   <a class="dropdown-item" style="color: white !important;" href="{% url 'stocks' %}">Stocks</a>
                                 </div>
-                              </li>
-                              <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" style="color: white !important;" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Settings</a>
-                                <div class="dropdown-menu" style="background: #0d6efd">
-                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'uom_index' %}">UOM</a>
-                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'sells_customer_transaction_index' %}">Sells Customer Transaction</a>
-                                </div>
-                              </li>
+                              </li> {% endcomment %}
                               <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" style="color: white !important;" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Customer</a>
                                 <div class="dropdown-menu" style="background: #0d6efd">
-                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'ledger' %}">Customer</a>
-                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'sells_customer_index' %}">Sells Customer</a>
+                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'ledger' %}">Buying Customer</a>
+                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'sells_customer_index' %}">Selling Customer</a>
                                   {% comment %} <a class="dropdown-item" style="color: white !important;" href="{% url 'party_invoice_index' %}">Party Invoice</a> {% endcomment %}
-                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'add_items_details_index' %}">Transaction</a>
                                   <!-- <a class="dropdown-item" href="#">Another action</a>
                                   <a class="dropdown-item" href="#">Something else here</a>
                                   <div class="dropdown-divider"></div>
                                   <a class="dropdown-item" href="#">Separated link</a> -->
+                                </div>
+                              </li>
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" style="color: white !important;" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Transaction</a>
+                                <div class="dropdown-menu" style="background: #0d6efd">
+                                  {% comment %} <a class="dropdown-item" style="color: white !important;" href="{% url 'uom_index' %}">UOM</a> {% endcomment %}
+                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'add_items_details_index' %}">Buyer Transaction</a>
+                                  <a class="dropdown-item" style="color: white !important;" href="{% url 'sells_customer_transaction_index' %}">Seller Transaction</a>
                                 </div>
                               </li>
                               <li class="nav-item">
