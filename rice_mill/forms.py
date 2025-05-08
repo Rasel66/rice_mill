@@ -20,6 +20,7 @@ class CutomerForm(forms.ModelForm):
         labels = {
             'customer_name': "Customer Name",
             'customer_name_bn': "Customer Name Bangla",
+            'previous_due': "Previous Due"
         }
 
 class ItemTypesForm(forms.ModelForm):
@@ -130,6 +131,7 @@ class SellsCustomerForm(forms.ModelForm):
         labels = {
             'customer_name': "Customer Name",
             'customer_name_bn': "Customer Name Bangla",
+            'previous_due': "Previous Due",
         }
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'})

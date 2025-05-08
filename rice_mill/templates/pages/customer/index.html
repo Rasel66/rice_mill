@@ -39,6 +39,7 @@
                     <th class="text-center">Phone</th>
                     <th class="text-center">Email</th>
                     <th class="text-center">Address</th>
+                    <th class="text-center">Previous Due</th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -52,6 +53,7 @@
                       <td class="text-center">{{customer.phone}}</td>
                       <td class="text-center">{{customer.email}}</td>
                       <td class="text-center">{{customer.address}}</td>
+                      <td class="text-center">{{customer.previous_due}}</td>
                       <td class="text-center">
                         <ul class="action">
                             <li >
@@ -76,7 +78,7 @@
                     {% endfor %}
                     {% else %}
                     <tr>
-                        <td colspan="7" class="text-center">Data not found</td>
+                        <td colspan="8" class="text-center">Data not found</td>
                     </tr>
                     {% endif %}
                 </tbody>

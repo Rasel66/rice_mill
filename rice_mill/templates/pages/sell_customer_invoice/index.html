@@ -38,7 +38,6 @@
                     <th class="text-center">Phone No</th>
                     <th class="text-center">Address</th>
                     <th class="text-center">Cash Pay</th>
-                    <th class="text-center">Total</th>
                     <th class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -55,7 +54,6 @@
                       <td class="text-center">{{item.customer.phone}}</td>
                       <td class="text-center">{{item.customer.address}}</td>
                       <td class="text-center">{{item.cash_pay}}</td>
-                      <td class="text-center">{{item.dhan_total}}</td>
                       <td class="text-center">
                         <ul class="action">
                             <li>
@@ -64,12 +62,12 @@
                                 </a>
                             </li>
                             <li>
-                              <a type="button" href="{% url 'add_items_details_update' item.id %}" class="edit-click" data-toggle="tooltip" data-placement="top" title="Update" >
+                              <a type="button" href="{% url 'sells_customer_transaction_update' item.id %}" class="edit-click" data-toggle="tooltip" data-placement="top" title="Update" >
                                 <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             </li>
                             <li>
-                                <a type="button" href="{% url 'add_items_single_details' item.id %}" class="eye-click" data-toggle="tooltip" data-placement="top" title="Details" >
+                                <a type="button" href="{% url 'sells_customer_transaction_single' item.id %}" class="eye-click" data-toggle="tooltip" data-placement="top" title="Details" >
                                     <i class="fa-solid fa-eye"></i>
                                   </a>
                               </li>

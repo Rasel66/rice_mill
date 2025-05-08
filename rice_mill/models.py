@@ -15,6 +15,7 @@ class CustomUser(AbstractUser):
 class Customer(models.Model):
     customer_name = models.CharField(max_length=255)
     customer_name_bn = models.CharField(max_length=255)
+    previous_due = models.FloatField()
     phone = models.CharField(max_length=20)
     email = models.EmailField(blank=True, null=True)
     address = models.CharField(max_length=200, blank=True, null=True)
@@ -127,23 +128,39 @@ class AddItemsDetails(models.Model):
 
     def save(self, *args, **kwargs):
         is_new = self._state.adding
-        if self.dhan_uom.uom_name == "MON" or self.chaul_uom.uom_name == "MON" or self.khud_uom.uom_name == "MON" or self.kura_uom.uom_name == "MON" or self.chita_uom.uom_name == "MON":
+        if self.dhan_uom.uom_name == "MON":
             self.dhan_total = self.dhan_qty * self.dhan_unit_price
-            self.chaul_total = self.chaul_qty * self.chaul_unit_price
-            self.khud_total = self.khud_qty * self.khud_unit_price
-            self.kura_total = self.kura_qty * self.kura_unit_price
-            self.chita_total = self.chita_qty * self.chita_unit_price
-        elif self.dhan_uom.uom_name == "KG" or self.chaul_uom.uom_name == "KG" or self.khud_uom.uom_name == "KG" or self.kura_uom.uom_name == "KG" or self.chita_uom.uom_name == "KG":
+        elif self.dhan_uom.uom_name == "KG":
             self.dhan_total = (self.dhan_qty / 40) * self.dhan_unit_price
-            self.chaul_total = (self.chaul_qty / 40) * self.chaul_unit_price
-            self.kura_total = (self.kura_qty / 40) * self.kura_unit_price
-            self.khud_total = (self.khud_qty / 40) * self.khud_unit_price
-            self.chita_total = (self.chita_qty / 40) * self.chita_unit_price
         else:
             self.dhan_total = 0
+
+        if self.chaul_uom.uom_name == "MON":
+            self.chaul_total = self.chaul_qty * self.chaul_unit_price
+        elif self.chaul_uom.uom_name == "KG":
+            self.chaul_total = (self.chaul_qty / 40) * self.chaul_unit_price
+        else:
             self.chaul_total = 0
-            self.kura_total = 0
+
+        if self.khud_uom.uom_name == "MON":
+            self.khud_total = self.khud_qty * self.khud_unit_price
+        elif self.khud_uom.uom_name == "KG":
+            self.khud_total = (self.khud_qty / 40) * self.khud_unit_price
+        else:
             self.khud_total = 0
+
+        if self.kura_uom.uom_name == "MON":
+            self.kura_total = self.kura_qty * self.kura_unit_price
+        elif self.kura_uom.uom_name == "KG":
+            self.kura_total = (self.kura_qty / 40) * self.kura_unit_price
+        else:
+            self.kura_total = 0
+
+        if self.chita_uom.uom_name == "MON":
+            self.chita_total = self.chita_qty * self.chita_unit_price
+        elif self.chita_uom.uom_name == "KG":
+            self.chita_total = (self.chita_qty / 40) * self.chita_unit_price
+        else:
             self.chita_total = 0
         super().save(*args, **kwargs)
 
@@ -180,6 +197,7 @@ class SellCustomers(models.Model):
     customer_name = models.CharField(max_length=250)
     customer_name_bn = models.CharField(max_length=250, blank=True, null=True)
     phone = models.CharField(max_length=20)
+    previous_due = models.FloatField()
     email = models.EmailField()
     address = models.CharField(max_length=250)
     date = models.DateField()
@@ -222,20 +240,32 @@ class SellsInvoices(models.Model):
 
     def save(self, *args, **kwargs):
         is_new = self._state.adding
-        if self.chaul_uom.uom_name == "MON" or self.khud_uom.uom_name == "MON" or self.kura_uom.uom_name == "MON" or self.chita_uom.uom_name == "MON":
+        if self.chaul_uom.uom_name == "MON":
             self.chaul_total = self.chaul_qty * self.chaul_unit_price
-            self.khud_total = self.khud_qty * self.khud_unit_price
-            self.kura_total = self.kura_qty * self.kura_unit_price
-            self.chita_total = self.chita_qty * self.chita_unit_price
-        elif self.chaul_uom.uom_name == "KG" or self.khud_uom.uom_name == "KG" or self.kura_uom.uom_name == "KG" or self.chita_uom.uom_name == "KG":
+        elif self.chaul_uom.uom_name == "KG":
             self.chaul_total = (self.chaul_qty / 40) * self.chaul_unit_price
-            self.kura_total = (self.kura_qty / 40) * self.kura_unit_price
-            self.khud_total = (self.khud_qty / 40) * self.khud_unit_price
-            self.chita_total = (self.chita_qty / 40) * self.chita_unit_price
         else:
             self.chaul_total = 0
-            self.kura_total = 0
+
+        if self.khud_uom.uom_name == "MON":
+            self.khud_total = self.khud_qty * self.khud_unit_price
+        elif self.khud_uom.uom_name == "KG":
+            self.khud_total = (self.khud_qty / 40) * self.khud_unit_price
+        else:
             self.khud_total = 0
+
+        if self.kura_uom.uom_name == "MON":
+            self.kura_total = self.kura_qty * self.kura_unit_price
+        elif self.kura_uom.uom_name == "KG":
+            self.kura_total = (self.kura_qty / 40) * self.kura_unit_price
+        else:
+            self.kura_total = 0
+
+        if self.chita_uom.uom_name == "MON":
+            self.chita_total = self.chita_qty * self.chita_unit_price
+        elif self.chita_uom.uom_name == "KG":
+            self.chita_total = (self.chita_qty / 40) * self.chita_unit_price
+        else:
             self.chita_total = 0
         super().save(*args, **kwargs)
 

@@ -1,10 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Sum
-from django.shortcuts import get_object_or_404
 from django.core.paginator import Page, PageNotAnInteger, Paginator, EmptyPage
 
 from .models import Customer, ItemTypes, Items, Uom, PartyInvoices, PartyInvoiceChild, AddItemsDetails, SellCustomers, Stocks, SellsInvoices
@@ -409,7 +408,7 @@ def addItems_details_create_view(request):
     context = {
         'form': form
     }
-    return render(request, 'pages/add_Items_details/create.html', context)
+    return render(request, 'pages/add_Items_details/add_items.html', context)
 
 @login_required(login_url='login')
 def addItems_details_update_view(request, pk):
@@ -584,6 +583,31 @@ def sells_customer_transaction_create_view(request):
     return render(request, 'pages/sell_customer_invoice/create.html', context)
 
 @login_required(login_url='login')
+def sells_customer_transaction_update_view(request, pk):
+    get_obj = SellsInvoices.objects.get(id=pk)
+    form = SellsCustomerTransactionForm(instance=get_obj)
+    if request.method == "POST":
+        form = SellsCustomerTransactionForm(request.POST, instance=get_obj)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Transaction Updated Successfully!!!")
+            return redirect("sells_customer_transaction_index")
+        else:
+            print(form.errors)
+    context = {
+        'form': form
+    }
+    return render(request, 'pages/sell_customer_invoice/update.html', context)
+
+@login_required(login_url='login')
+def sells_customer_transaction_single_view(request, pk):
+    get_obj = SellsInvoices.objects.get(id=pk)
+    context = {
+        'get_obj': get_obj
+    }
+    return render(request, 'pages/sell_customer_invoice/details.html', context)
+
+@login_required(login_url='login')
 def sells_customer_transaction_delete_view(request, pk):
     get_obj = get_object_or_404(SellsInvoices, id=pk)
     get_obj.delete()
@@ -594,10 +618,10 @@ def sells_customer_transaction_delete_view(request, pk):
 def sells_customer_invoice_generation_view(request, pk):
     get_data = SellsInvoices.objects.get(id=pk)
     item_total = sum(filter(None, [
-        get_data.chaul_qty,
-        get_data.khud_qty,
-        get_data.kura_qty,
-        get_data.chita_qty
+        get_data.chaul_total,
+        get_data.khud_total,
+        get_data.kura_total,
+        get_data.chita_total
     ]))
 
     cash_pay = get_data.cash_pay or 0
@@ -606,10 +630,10 @@ def sells_customer_invoice_generation_view(request, pk):
     previous_due = 0
     for transaction in previous_transaction:
         previous_item_total = sum(filter(None, [
-            transaction.chaul_qty,
-            transaction.khud_qty,
-            transaction.kura_qty,
-            transaction.chita_qty
+            transaction.chaul_total,
+            transaction.khud_total,
+            transaction.kura_total,
+            transaction.chita_total
         ]))
         previous_cash_pay = transaction.cash_pay or 0
         previous_due_balance = previous_item_total - previous_cash_pay
@@ -638,26 +662,27 @@ def stock_index_view(request):
 
 # AJAX VIEW
 @login_required(login_url='login')
-def ajax_load_phone_no(request):
+def ajax_load_customer_phone_no(request):
     customer_id = request.GET.get('customer_id')
+    print("cus", customer_id)
     phone_no = list(Customer.objects.filter(id=customer_id).values_list("phone", flat=True))
     return JsonResponse({"phone_no": phone_no})
 
 @login_required(login_url='login')
-def ajax_load_address(request):
+def ajax_load_customer_address(request):
     customer_id = request.GET.get('customer_id')
     address = list(Customer.objects.filter(id=customer_id).values_list("address", flat=True))
     return JsonResponse({"address": address})
 
 
 @login_required(login_url='login')
-def ajax_load_phone_no(request):
+def ajax_load_sells_customer_phone_no(request):
     customer_id = request.GET.get('customer_id')
     phone_no = list(SellCustomers.objects.filter(id=customer_id).values_list("phone", flat=True))
     return JsonResponse({"phone_no": phone_no})
 
 @login_required(login_url='login')
-def ajax_load_address(request):
+def ajax_load_sells_customer_address(request):
     customer_id = request.GET.get('customer_id')
     address = list(SellCustomers.objects.filter(id=customer_id).values_list("address", flat=True))
     return JsonResponse({"address": address})

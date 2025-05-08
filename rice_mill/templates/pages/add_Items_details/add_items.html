@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Add all items{% endblock  %}
+{% block content %}
+<div class="container base-container card" style="background-color: white;">
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <div class="title-text">
+                <h5 class="fw-bold">Add Items</h5>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-8 items_info">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td class="fw-bold bg-light py-4">Dhan</td>
+                            <td>{{form.dhan_uom|as_crispy_field}}</td>
+                            <td>{{form.dhan_qty|as_crispy_field}}</td>
+                            <td>{{form.dhan_unit_price|as_crispy_field}}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold bg-light py-4">Chaul</td>
+                            <td>{{form.chaul_uom|as_crispy_field}}</td>
+                            <td>{{form.chaul_qty|as_crispy_field}}</td>
+                            <td>{{form.chaul_unit_price|as_crispy_field}}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold bg-light py-4">Khud</td>
+                            <td>{{form.khud_uom|as_crispy_field}}</td>
+                            <td>{{form.khud_qty|as_crispy_field}}</td>
+                            <td>{{form.khud_unit_price|as_crispy_field}}</td>
+                        </tr>
+                        <tr> 
+                            <td class="fw-bold bg-light py-4">Kura</td>
+                            <td>{{form.kura_uom|as_crispy_field}}</td>
+                            <td>{{form.kura_qty|as_crispy_field}}</td>
+                            <td>{{form.kura_unit_price|as_crispy_field}}</td>
+                        </tr>
+                        <tr>
+                            <td class="fw-bold bg-light py-4">Chita</td>
+                            <td>{{form.chita_uom|as_crispy_field}}</td>
+                            <td>{{form.chita_qty|as_crispy_field}}</td>
+                            <td>{{form.chita_unit_price|as_crispy_field}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold text-center p-2 bg-light" style="border: 1px solid lightgray; border-radius: 3px;">Customer Information</h5>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>{{form.customer|as_crispy_field}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{form.phone_no|as_crispy_field}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{form.address|as_crispy_field}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{form.cash_pay|as_crispy_field}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{form.date|as_crispy_field}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class='text-center m-3'>
+                <button type="submit" class="btn btn-info">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock  %}
+{% block blockJs %}
+<script>
+    var load_customer_phone_no_url = "{% url 'ajax_load_customer_phone_no' %}"
+    var load_customer_address_url = "{% url 'ajax_load_customer_address' %}"
+    var load_sells_customer_phone_no_url = "{% url 'ajax_load_sells_customer_phone_no' %}"
+    var load_sells_customer_address_url = "{% url 'ajax_load_sells_customer_address' %}"
+
+    $(document).ready(function(){
+        $("#id_customer").change(function(){
+            var customer_id = $(this).val()
+            $.ajax({
+                url: load_customer_phone_no_url,
+                data: {
+                    'customer_id': customer_id
+                },
+                success: function(data){
+                    $("#id_phone_no").val(data.phone_no)
+                },
+            });
+            $.ajax({
+                url: load_customer_address_url,
+                data: {
+                    'customer_id': customer_id
+                },
+                success: function(data){
+                    $("#id_address").val(data.address)
+                }
+            })
+
+            $.ajax({
+                url: load_sells_customer_phone_no_url,
+                data: {
+                    'customer_id': customer_id
+                },
+                success: function(data){
+                    $("#id_phone_no").val(data.phone_no)
+                },
+            });
+            $.ajax({
+                url: load_sells_customer_address_url,
+                data: {
+                    'customer_id': customer_id
+                },
+                success: function(data){
+                    $("#id_address").val(data.address)
+                }
+            })
+        })
+    })
+    
+</script>
+     
+{% endblock %}

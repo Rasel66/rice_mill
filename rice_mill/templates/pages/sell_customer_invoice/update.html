@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% block title %}Update Item Details{% endblock  %}
+{% block title %}Update Buy Items{% endblock  %}
 {% block content %}
 <div class="container base-container card" style="background-color: white;">
     <div class="row mt-3">
         <div class="col-md-6">
             <div class="title-text">
-                <h5>Update Item Details</h5>
+                <h5>Update Buy Items</h5>
             </div>
         </div>
     </div>
@@ -16,20 +16,6 @@
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-8 items_info">
-                    <div class="item_heading text-center">
-                        <h6>Dhan</h6>
-                    </div>
-                    <div class="row my-3 mb-4">
-                        <div class="col-md-4">
-                            {{form.dhan_uom|as_crispy_field}}
-                        </div>
-                        <div class="col-md-4">
-                            {{form.dhan_qty|as_crispy_field}}
-                        </div>
-                        <div class="col-md-4">
-                            {{form.dhan_unit_price|as_crispy_field}}
-                        </div>
-                    </div>
                     <div class="item_heading text-center">
                         <h6>Chaul</h6>
                     </div>

@@ -50,6 +50,8 @@ urlpatterns = [
 
     path('sells-customer/transaction/index/', sells_customer_transaction_index_view, name='sells_customer_transaction_index'),
     path('sells-customer/transaction/create/', sells_customer_transaction_create_view, name='sells_customer_transaction_create'),
+    path('sells-customer/transaction/update/<int:pk>', sells_customer_transaction_update_view, name='sells_customer_transaction_update'),
+    path('sells-customer/transaction/single-details/<int:pk>', sells_customer_transaction_single_view, name='sells_customer_transaction_single'),
     path('sells-customer/transaction/delete/<int:pk>', sells_customer_transaction_delete_view, name='sells_customer_transaction_delete'),
 
     path('stocks/', stock_index_view, name='stocks'),
@@ -58,6 +60,8 @@ urlpatterns = [
     path('sells-customer/invoice/generation/<int:pk>', sells_customer_invoice_generation_view, name='sells_customer_invoice_generation'),
 
     # AJAX URL
-    path('ajax/load-phone-no/', ajax_load_phone_no, name='ajax_load_phone_no'),
-    path('ajax/load-address/', ajax_load_address, name='ajax_load_address'),
+    path('ajax/load-phone-no/', ajax_load_customer_phone_no, name='ajax_load_customer_phone_no'),
+    path('ajax/load-address/', ajax_load_customer_address, name='ajax_load_customer_address'),
+    path('ajax/load-phone-no/', ajax_load_sells_customer_phone_no, name='ajax_load_sells_customer_phone_no'),
+    path('ajax/load-address/', ajax_load_sells_customer_address, name='ajax_load_sells_customer_address'),
 ]
