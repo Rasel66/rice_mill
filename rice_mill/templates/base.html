@@ -31,6 +31,12 @@
                               <li class="nav-item">
                                 <a class="nav-link" style="color: white !important;" href="#">Dashboard</a>
                               </li>
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" style="color: white !important;" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">HRM</a>
+                                <div class="dropdown-menu" style="background: #0d6efd">
+                                  <a class="dropdown-item" style="color: white !important;" href="#">Monthly Salary</a>
+                                </div>
+                              </li>
                               <li class="nav-item">
                                 <a class="nav-link" style="color: white !important;" href="{% url 'stocks' %}">Stocks</a>
                               </li>
@@ -61,6 +67,12 @@
                                   {% comment %} <a class="dropdown-item" style="color: white !important;" href="{% url 'uom_index' %}">UOM</a> {% endcomment %}
                                   <a class="dropdown-item" style="color: white !important;" href="{% url 'add_items_details_index' %}">Buyer Transaction</a>
                                   <a class="dropdown-item" style="color: white !important;" href="{% url 'sells_customer_transaction_index' %}">Seller Transaction</a>
+                                </div>
+                              </li>
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" style="color: white !important;" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Expense</a>
+                                <div class="dropdown-menu" style="background: #0d6efd">
+                                  <a class="dropdown-item" style="color: white !important;" href="#">Bill Payment</a>
                                 </div>
                               </li>
                               <li class="nav-item">

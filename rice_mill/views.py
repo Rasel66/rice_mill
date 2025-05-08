@@ -1,10 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Sum
-from django.shortcuts import get_object_or_404
 from django.core.paginator import Page, PageNotAnInteger, Paginator, EmptyPage
 
 from .models import Customer, ItemTypes, Items, Uom, PartyInvoices, PartyInvoiceChild, AddItemsDetails, SellCustomers, Stocks, SellsInvoices
@@ -409,7 +408,7 @@ def addItems_details_create_view(request):
     context = {
         'form': form
     }
-    return render(request, 'pages/add_Items_details/create.html', context)
+    return render(request, 'pages/add_Items_details/add_items.html', context)
 
 @login_required(login_url='login')
 def addItems_details_update_view(request, pk):
@@ -663,26 +662,27 @@ def stock_index_view(request):
 
 # AJAX VIEW
 @login_required(login_url='login')
-def ajax_load_phone_no(request):
+def ajax_load_customer_phone_no(request):
     customer_id = request.GET.get('customer_id')
+    print("cus", customer_id)
     phone_no = list(Customer.objects.filter(id=customer_id).values_list("phone", flat=True))
     return JsonResponse({"phone_no": phone_no})
 
 @login_required(login_url='login')
-def ajax_load_address(request):
+def ajax_load_customer_address(request):
     customer_id = request.GET.get('customer_id')
     address = list(Customer.objects.filter(id=customer_id).values_list("address", flat=True))
     return JsonResponse({"address": address})
 
 
 @login_required(login_url='login')
-def ajax_load_phone_no(request):
+def ajax_load_sells_customer_phone_no(request):
     customer_id = request.GET.get('customer_id')
     phone_no = list(SellCustomers.objects.filter(id=customer_id).values_list("phone", flat=True))
     return JsonResponse({"phone_no": phone_no})
 
 @login_required(login_url='login')
-def ajax_load_address(request):
+def ajax_load_sells_customer_address(request):
     customer_id = request.GET.get('customer_id')
     address = list(SellCustomers.objects.filter(id=customer_id).values_list("address", flat=True))
     return JsonResponse({"address": address})

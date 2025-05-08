@@ -15,6 +15,7 @@ class CustomUser(AbstractUser):
 class Customer(models.Model):
     customer_name = models.CharField(max_length=255)
     customer_name_bn = models.CharField(max_length=255)
+    previous_due = models.FloatField()
     phone = models.CharField(max_length=20)
     email = models.EmailField(blank=True, null=True)
     address = models.CharField(max_length=200, blank=True, null=True)
@@ -196,6 +197,7 @@ class SellCustomers(models.Model):
     customer_name = models.CharField(max_length=250)
     customer_name_bn = models.CharField(max_length=250, blank=True, null=True)
     phone = models.CharField(max_length=20)
+    previous_due = models.FloatField()
     email = models.EmailField()
     address = models.CharField(max_length=250)
     date = models.DateField()

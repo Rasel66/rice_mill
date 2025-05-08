@@ -60,6 +60,8 @@ urlpatterns = [
     path('sells-customer/invoice/generation/<int:pk>', sells_customer_invoice_generation_view, name='sells_customer_invoice_generation'),
 
     # AJAX URL
-    path('ajax/load-phone-no/', ajax_load_phone_no, name='ajax_load_phone_no'),
-    path('ajax/load-address/', ajax_load_address, name='ajax_load_address'),
+    path('ajax/load-phone-no/', ajax_load_customer_phone_no, name='ajax_load_customer_phone_no'),
+    path('ajax/load-address/', ajax_load_customer_address, name='ajax_load_customer_address'),
+    path('ajax/load-phone-no/', ajax_load_sells_customer_phone_no, name='ajax_load_sells_customer_phone_no'),
+    path('ajax/load-address/', ajax_load_sells_customer_address, name='ajax_load_sells_customer_address'),
 ]
