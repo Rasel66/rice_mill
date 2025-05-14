@@ -116,3 +116,22 @@ a.delete-click {
 .items_info label{
     margin-bottom: 5px;
 }
+
+/* Stocks */
+.card-item{
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 4px;
+    transition: .5s;
+}
+.card-item:hover{
+    transform: scale(1.1);
+}
+.item-left h2{
+    padding-top: 10%;
+    padding-left: 10%;
+}
+.item-right h4{
+    border-left: 1px solid black;
+    padding-left: 10%;
+}

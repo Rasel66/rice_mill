@@ -11,61 +11,74 @@
         </div>
     </div>
     <hr>
-    <div class="row mb-3">
-        <div class="col-md-4">
-            <div class="search">
-                <form class="d-flex">
-                    <input class="form-control me-sm-2" type="search" placeholder="Search Customer">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card-item" style="background-color: #d2b4de;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="item-left">
+                            <h2>Chaul</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="item-right">
+                            <h4>{{obj_list.chaul_qty}} KG</h4>
+                            <h4>5 MON</h4>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-8"></div>
-    </div>
-    <div class="row">
-        <div class="tables table-responsive" id="deptList">
-            <table class="table table-hover table-bordered">
-                <thead>
-                  <tr>
-                    <th class="text-center">SL</th>
-                    <th class="text-center">Item Name</th>
-                    <th class="text-center">Quantity</th>
-                    <th class="text-center">UOM</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {% if obj_list %}
-                    <tr>
-                        <th class="text-center">1</th>
-                        <th class="text-center">Chaul</th>
-                        <th class="text-center">{{obj_list.chaul_qty}}</th>
-                        <th class="text-center">KG</th>
-                    </tr>
-                    <tr>
-                        <th class="text-center">2</th>
-                        <th class="text-center">Khud</th>
-                        <th class="text-center">{{obj_list.khud_qty}}</th>
-                        <th class="text-center">KG</th>
-                    </tr>                    <tr>
-                        <th class="text-center">3</th>
-                        <th class="text-center">Kura</th>
-                        <th class="text-center">{{obj_list.kura_qty}}</th>
-                        <th class="text-center">KG</th>
-                    </tr>
-                    <tr>
-                        <th class="text-center">4</th>
-                        <th class="text-center">Chita</th>
-                        <th class="text-center">{{obj_list.chita_qty}}</th>
-                        <th class="text-center">KG</th>
-                    </tr>
-
-                    {% else %}
-                    <tr>
-                        <td colspan="10" class="text-center">Data not found</td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
+        <div class="col-md-3">
+            <div class="card-item" style="background-color: #a9cce3;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="item-left">
+                            <h2>Khud</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="item-right">
+                            <h4>{{obj_list.khud_qty}} KG</h4>
+                            <h4>5 MON</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-item" style="background-color: #abebc6;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="item-left">
+                            <h2>Kura</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="item-right">
+                            <h4>{{obj_list.kura_qty}} KG</h4>
+                            <h4>5 MON</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-item" style="background-color: #fad7a0;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="item-left">
+                            <h2>Chita</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="item-right">
+                            <h4>{{obj_list.chita_qty}} KG</h4>
+                            <h4>5 MON</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
